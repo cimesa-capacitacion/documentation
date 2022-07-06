@@ -22,7 +22,7 @@ The method to acquire your credentials depends on your hosting type:
       #. Confirm your email address when Stripe sends you a confirmation email.
       #. At the end of the process, you are redirected to Odoo. If you submitted all the requested
          information, you are all set and your payment acquirer is enabled.
-      #. Your can continue to :ref:`stripe/local-payment-methods`.
+      #. You can continue to :ref:`stripe/local-payment-methods`.
 
       .. tip::
          To use your own API keys, :ref:`activate the Developer mode <developer-mode>` and
@@ -133,7 +133,7 @@ To set it up, enable the :guilabel:`Capture Amount Manually` option on Odoo, as 
    payment if unsupported payment methods are selected.
 
 .. caution::
-   Odoo doesn't support the partial capture yet. Be aware that a partial capture from Stripe's 
+   Odoo doesn't support the partial capture yet. Be aware that a partial capture from Stripe's
    interface is still managed as a full capture by Odoo.
 
 .. seealso::
@@ -171,3 +171,46 @@ listed, you don't have anything to do.
 
 .. seealso::
    - :doc:`../payment_acquirers`
+
+.. _stripe/express-checkout:
+
+Enable Express checkout
+=======================
+
+Express Checkout is a way for your customers to pay in one click using Google Pay or Apple Pay.
+Using one of those buttons, they'll go straight from the cart to the confirmation page, stopping by
+the form of Google or Apple to validate the payment and fill in their information.
+
+Enable this feature by navigating to the :guilabel:`Configuration` tab from your payment acquirer
+and by ticking the :guilabel:`Enable Express Checkout` checkbox. Google Pay will work without any
+further configuration, but Apple Pay will need a few more steps.
+
+All prices shown in the express checkout form will always be taxes included.
+
+Configure Apple Pay
+-------------------
+To use Apple Pay, you need to register with Apple your web domain which will show an Apple Pay
+button. Stripe handles the process of "merchant validation" described in Apple's documentation for
+Apple Pay on the Web for you. Therefore, you only need to verify your web domain with Stripe, either
+automatically or manually.
+
+.. tabs::
+   .. tab:: Verify the web domain automatically
+
+      Go to :menuselection:`Payment Acquirers --> Stripe` and check that the acquirer is
+      :guilabel:`enabled`. If it's the case, an :guilabel:`Apple Pay: Verify your domain` button
+      should appears in the :guilabel:`Configuration` tab. Click on it to verify your web domain.
+
+   .. tab:: Verify the web domain manually
+
+      Visit the `Apple pay web domains page on Stripe
+      <https://dashboard.stripe.com/settings/payments/apple_pay>`_, or log into your Stripe
+      dashboard and go to :menuselection:`Settings --> payments_methods --> Apple Pay --> Configure`.
+      Then, click on :guilabel:`Add new domain` in your :guilabel:`Web domains` and insert the
+      web domain of your database into the pop-up form. Odoo already host the verification file of
+      Stripe.
+
+      When you click on :guilabel:`Add`, your web domain is verified.
+
+.. note::
+   You have to repeat this operation whenever your web domain changes.
